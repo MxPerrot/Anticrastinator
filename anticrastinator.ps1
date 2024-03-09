@@ -1,10 +1,15 @@
-# Paths
+#########
+# Paths #
+#########
+
 $BROWSER_PATH = "C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe"
 $IDE_PATH = "C:\Users\unmax\AppData\Local\Programs\Microsoft VS Code\Code.exe"
 $PROJECTS_DIR = "D:\git"
 $MUSIC_DB = "./music.csv"
 
-# Functions
+#############
+# Functions #
+#############
 
 # OPEN MUSIC IN BROWSER
 function Open-Browser {
@@ -24,37 +29,36 @@ function Open-Project {
         [string]$ProjectPath
     )
 
-    # Check if project path is specified
     if ($ProjectPath -ne "") {Start-Process -FilePath $IDE_PATH -ArgumentList $ProjectPath -NoNewWindow} 
     else {Write-Host "ERROR: No project path specified."}
 }
 
 # SELECT PROJECT
 function Select-Project {
-    # Check if projects directory exists
-    if (Test-Path $PROJECTS_DIR) {
-        # Get all subdirectories in projects directory
+
+    if (Test-Path $PROJECTS_DIR) { # Check if projects directory exists
         $projects = Get-ChildItem -Path $PROJECTS_DIR -Directory
 
-        # Check if there are any projects
-        if ($projects.Count -gt 0) {
+        if ($projects.Count -gt 0) { # Check if there are any projects
             # Display menu for selecting a project
             Write-Host "`nProjects"
             for ($i = 0; $i -lt $projects.Count; $i++) {
                 Write-Host "$($i + 1). $($projects[$i].Name)"
             }
 
-            # Prompt user for project selection
-            $selection = Read-Host "`nSelect a project"
+            do {
+                $selection = Read-Host "`nSelect a project"
 
-            # Validate user input
-            if ($selection -ge 1 -and $selection -le $projects.Count) {
-                $selectedProject = $projects[$selection - 1].Name
-                $projectPath = Join-Path -Path $PROJECTS_DIR -ChildPath $selectedProject
+                if ($selection -ge 1 -and $selection -le $projects.Count) {
+                    $selectedProject = $projects[$selection - 1].Name
+                    $projectPath = Join-Path -Path $PROJECTS_DIR -ChildPath $selectedProject
 
-                # Open the selected project in IDE
-                return $projectPath
-            } else {Write-Host "Invalid selection. Please try again.`n"}
+                    return $projectPath
+                } else {
+                    Write-Host "Invalid selection. Please try again.`n"
+                }
+            } while ($true)
+            
         } else {Write-Host "No projects found in $PROJECTS_DIR`n"}
     } else {Write-Host "Projects directory not found. Path: $PROJECTS_DIR`n"}
 }
@@ -69,30 +73,35 @@ function Select-Music {
         # Check if there are any musics
         if ($musics.Count -gt 0) {
             # Display menu for selecting a music
-            Write-Host "Musics"
+            Write-Host "`nMusics"
             for ($i = 0; $i -lt $musics.Count; $i++) {
                 Write-Host "$($i + 1). $($musics[$i].name)"
             }
 
-            # Prompt user for music selection
-            $selection = Read-Host "`nSelect a music"
+            do {
+                # Prompt user for music selection
+                $selection = Read-Host "`nSelect a music"
 
-            # Validate user input
-            if ($selection -ne 0) {
-                if ($selection -ge 1 -and $selection -le $musics.Count) {
-                    $selectedMusic = $musics[$selection - 1]
-                    $musicUrl = $selectedMusic.url
+                # Validate user input
+                if ($selection -ge 0 -and $selection -le $musics.Count) {
+                    if ($selection -ne 0) {
+                        $selectedMusic = $musics[$selection - 1]
+                        $musicUrl = $selectedMusic.url
 
-                    # Open the selected music in the browser
-                    Open-Browser -musicUrl "https://www.youtube.com/watch?v=$musicUrl"
-                } else {Write-Host "Invalid selection. Please try again.`n"}
-            } else {Write-Host "No music selected.`n"}
+                        # Open the selected music in the browser
+                        Open-Browser -musicUrl "https://www.youtube.com/watch?v=$musicUrl"
+                    }
+                } else {
+                    Write-Host "Invalid selection. Please try again.`n"
+                }
+            } while ($selection -lt 0 -or $selection -gt $musics.Count)
         } else {Write-Host "No musics found in $MUSIC_DB`n"}
     } else {Write-Host "Music database not found. Path: $MUSIC_DB`n"}
 }
 
-
-# Main
+########
+# MAIN #
+########
 function Main {
     $projectPath = Select-Project
     Select-Music
@@ -101,5 +110,3 @@ function Main {
 
 # Call the main function
 Main
-
-# End of script
