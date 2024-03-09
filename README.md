@@ -3,10 +3,9 @@
 This script helps you to get working by opening a project in your IDE and playing some music.
 It will prompt you to select a project and a music from your database.
 
-If this is your first time running this script, please make sure to configure the paths in beginning of the script
+If this is your first time running this script, please **make sure to configure the paths** in beginning of the script
 
 ## Install
-
 
 1. Clone this repository to your machine
 2. Edit the paths in the beginning of `anticrastinator.ps1`
@@ -17,3 +16,14 @@ If this is your first time running this script, please make sure to configure th
     - Double click the icon you just created on your desktop
     - Run it using Powershell. Remember to check `use this every time []`
     
+## Add your own music
+
+To add your own music, open the `music.csv` file using a text editor and add a row for each music following this format: `name, youtube-identifier`
+
+> e.g. I want to add this music
+> Lindsey Stirling - Roundtable Rival (Official Music Video)
+> `https://www.youtube.com/watch?v=jvipPYFebWc`
+>
+> the shortened youtube url is the string of characters after the `=`. here it is `jvipPYFebWc`
+> 
+> therefore I add `Lindsey Stirling - Roundtable Rival,jvipPYFebWc` at the end of `music.csv`
