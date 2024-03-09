@@ -2,14 +2,21 @@
 # Paths #
 #########
 
-$BROWSER_PATH = "C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe"
-$IDE_PATH = "C:\Users\unmax\AppData\Local\Programs\Microsoft VS Code\Code.exe"
-$PROJECTS_DIR = "D:\git"
-$MUSIC_DB = "./music.csv"
+$BROWSER_PATH = "C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe" # Path to your browser (USE YOUR OWN PATH)
+$IDE_PATH = "C:\Users\unmax\AppData\Local\Programs\Microsoft VS Code\Code.exe" # Path to your IDE (USE YOUR OWN PATH)
+$PROJECTS_DIR = "D:\git" # Path to the directory where your projects are stored (USE YOUR OWN PATH)
+$MUSIC_DB = "./music.csv" # Path to the music database (KEEP THE DEFAULT PATH)
 
 #############
 # Functions #
 #############
+
+# DISPLAY INFO
+
+function Info {
+    Write-Host "ANTICRASTINATOR"
+    Write-Host "---------------`n"
+}
 
 # OPEN MUSIC IN BROWSER
 function Open-Browser {
@@ -74,6 +81,7 @@ function Select-Music {
         if ($musics.Count -gt 0) {
             # Display menu for selecting a music
             Write-Host "`nMusics"
+            Write-Host "0. NO MUSIC"
             for ($i = 0; $i -lt $musics.Count; $i++) {
                 Write-Host "$($i + 1). $($musics[$i].name)"
             }
@@ -103,6 +111,7 @@ function Select-Music {
 # MAIN #
 ########
 function Main {
+    Info
     $projectPath = Select-Project
     Select-Music
     Open-Project -project $projectPath
