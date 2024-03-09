@@ -21,7 +21,9 @@ If this is your first time running this script, please **make sure to configure 
 To add your own music, open the `music.csv` file using a text editor and add a row for each music following this format: `name, youtube-identifier`
 
 > e.g. I want to add this music
+> 
 > Lindsey Stirling - Roundtable Rival (Official Music Video)
+> 
 > `https://www.youtube.com/watch?v=jvipPYFebWc`
 >
 > The shortened youtube URL is the string of characters after the `=`. here it is `jvipPYFebWc`
