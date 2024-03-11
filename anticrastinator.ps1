@@ -5,7 +5,7 @@
 $BROWSER_PATH = "C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe" # Path to your browser (USE YOUR OWN PATH)
 $IDE_PATH = "C:\Users\unmax\AppData\Local\Programs\Microsoft VS Code\Code.exe" # Path to your IDE (USE YOUR OWN PATH)
 $PROJECTS_DIR = "D:\git" # Path to the directory where your projects are stored (USE YOUR OWN PATH)
-$MUSIC_DB = "./music.csv" # Path to the music database (KEEP THE DEFAULT PATH)
+$MUSIC_DB = "./private_music.csv" # Path to the music database (USE YOUR OWN PATH, PREFERABLY TO music.csv)
 
 #############
 # Functions #
