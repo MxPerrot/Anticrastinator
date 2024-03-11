@@ -9,7 +9,8 @@ If this is your first time running this script, please **make sure to configure 
 
 1. Clone this repository to your machine
 2. Edit the paths at the beginning of `anticrastinator.ps1`
-3. Creating an icon on your Desktop
+3. see "Add your own music"
+4. Creating an icon on your Desktop
     - Right-click `anticrastinator.ps1` in your file explorer
     - Click on `Send to`
     - Click on `Desktop (link)`
