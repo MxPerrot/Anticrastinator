@@ -34,8 +34,8 @@ Set-Variable -Name "ERROR_NO_MUSICS_FOUND"              -Value "ERROR: No musics
 # DISPLAY INFO
 
 function Info {
-    Write-Host "ANTICRASTINATOR"
-    Write-Host "---------------`n"
+    # Print the Title constant
+    Write-Host $TITLE
 }
 
 # OPEN MUSIC IN BROWSER
@@ -45,8 +45,8 @@ function Open-Browser {
         [string]$musicUrl
     )
 
-    if (Test-Path $BROWSER_PATH) {Start-Process -FilePath $BROWSER_PATH -ArgumentList $musicUrl}
-    else {Write-Host "ERROR: Browser not found. Path: $BROWSER_PATH"}
+    if (Test-Path $PATH_BROWSER) {Start-Process -FilePath $PATH_BROWSER -ArgumentList $musicUrl}
+    else {Write-Host $ERROR_BROWSER_NOT_FOUND}
 }
 
 # OPEN PROJECT IN IDE
@@ -56,8 +56,8 @@ function Open-Project {
         [string]$ProjectPath
     )
 
-    if ($ProjectPath -ne "") {Start-Process -FilePath $IDE_PATH -ArgumentList $ProjectPath -NoNewWindow} 
-    else {Write-Host "ERROR: No project path specified."}
+    if ($ProjectPath -ne "") {Start-Process -FilePath $PATH_IDE -ArgumentList $ProjectPath -NoNewWindow} 
+    else {Write-Host $ERROR_PROJECT_PATH_NOT_SPECIFIED}	
 }
 
 # SELECT PROJECT
@@ -65,66 +65,74 @@ function Select-Project {
 
     if (Test-Path $PROJECTS_DIR) { # Check if projects directory exists
         $projects = Get-ChildItem -Path $PROJECTS_DIR -Directory
+        $projectsCount = $projects.Count
+        if ($projectsCount -gt 0) { # Check if there are any projects
+            
+            Write-Host "$projectsCount projects found in $PROJECTS_DIR`n"
 
-        if ($projects.Count -gt 0) { # Check if there are any projects
             # Display menu for selecting a project
             Write-Host "`nProjects"
-            for ($i = 0; $i -lt $projects.Count; $i++) {
+            for ($i = 0; $i -lt $projectsCount; $i++) {
                 Write-Host "$($i + 1). $($projects[$i].Name)"
             }
 
             do {
-                $selection = Read-Host "`nSelect a project"
+                # Prompt user for project selection
+                [int]$selection = Read-Host $PROMPT_SELECT_PROJECT
 
-                if ($selection -ge 1 -and $selection -le $projects.Count) {
+                # Validate user input
+                if ($selection -ge 1 -and $selection -le $projectsCount) {
+                    
                     $selectedProject = $projects[$selection - 1].Name
                     $projectPath = Join-Path -Path $PROJECTS_DIR -ChildPath $selectedProject
 
+                    Write-Host "Selected project: $selectedProject`n"
                     return $projectPath
                 } else {
-                    Write-Host "Invalid selection. Please try again.`n"
+                    Write-Host $ERROR_INVALID_SELECTION
                 }
             } while ($true)
-            
-        } else {Write-Host "No projects found in $PROJECTS_DIR`n"}
-    } else {Write-Host "Projects directory not found. Path: $PROJECTS_DIR`n"}
+        } else {Write-Host $ERROR_NO_PROJECTS_FOUND}
+    } else {Write-Host $ERROR_PROJECTS_DIR_NOT_FOUND}
 }
 
 # SELECT MUSIC
 function Select-Music {
-    # Check if music database exists
-    if (Test-Path $MUSIC_DB) {
-        # Read music database
+    if (Test-Path $MUSIC_DB) {# Check if music database exists
         $musics = Import-Csv -Path $MUSIC_DB
+        $musicsCount = $musics.Count
+
+        if ($musicsCount -gt 0) {# Check if there are any musics
 
         # Check if there are any musics
         if ($musics.Count -gt 0) {
             # Display menu for selecting a music
             Write-Host "`nMusics"
             Write-Host "0. NO MUSIC"
-            for ($i = 0; $i -lt $musics.Count; $i++) {
+            for ($i = 0; $i -lt $musicsCount; $i++) {
                 Write-Host "$($i + 1). $($musics[$i].name)"
             }
 
             do {
                 # Prompt user for music selection
-                $selection = Read-Host "`nSelect a music"
+                [int]$selection = Read-Host $PROMPT_SELECT_MUSIC
 
                 # Validate user input
-                if ($selection -ge 0 -and $selection -le $musics.Count) {
+                if ($selection -ge 0 -and $selection -le $musicsCount) {
+                    Write-Host "Selection: $selection"
                     if ($selection -ne 0) {
                         $selectedMusic = $musics[$selection - 1]
                         $musicUrl = $selectedMusic.url
 
                         # Open the selected music in the browser
-                        Open-Browser -musicUrl "https://www.youtube.com/watch?v=$musicUrl"
+                        return "$YOUTUBE_BASE_URL$musicUrl"
                     }
                 } else {
-                    Write-Host "Invalid selection. Please try again.`n"
+                    Write-Host $ERROR_INVALID_SELECTION
                 }
-            } while ($selection -lt 0 -or $selection -gt $musics.Count)
-        } else {Write-Host "No musics found in $MUSIC_DB`n"}
-    } else {Write-Host "Music database not found. Path: $MUSIC_DB`n"}
+            } while ($selection -lt 0 -or $selection -gt $musicsCount)
+        } else {Write-Host $ERROR_NO_MUSICS_FOUND}
+    } else {Write-Host $ERROR_MUSIC_DB_NOT_FOUND}
 }
 
 #############################################
