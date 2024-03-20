@@ -32,7 +32,6 @@ Set-Variable -Name "ERROR_NO_MUSICS_FOUND"              -Value "ERROR: No musics
 #############################################
 
 # DISPLAY INFO
-
 function Info {
     # Print the Title constant
     Write-Host $TITLE
@@ -104,8 +103,6 @@ function Select-Music {
 
         if ($musicsCount -gt 0) {# Check if there are any musics
 
-        # Check if there are any musics
-        if ($musics.Count -gt 0) {
             # Display menu for selecting a music
             Write-Host "`nMusics"
             Write-Host "0. NO MUSIC"
