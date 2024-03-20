@@ -142,7 +142,8 @@ function Select-Music {
 function Main {
     Info
     $projectPath = Select-Project
-    Select-Music
+    $musicPath = Select-Music
+    Open-Browser -musicUrl $musicPath
     Open-Project -project $projectPath
 }
 
