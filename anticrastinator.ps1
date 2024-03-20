@@ -1,11 +1,31 @@
-#########
-# Paths #
-#########
+#############################################
+#                 CONSTANTS                 #
+#############################################
 
-$BROWSER_PATH = "C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe" # Path to your browser (USE YOUR OWN PATH)
-$IDE_PATH = "C:\Users\unmax\AppData\Local\Programs\Microsoft VS Code\Code.exe" # Path to your IDE (USE YOUR OWN PATH)
-$PROJECTS_DIR = "D:\git" # Path to the directory where your projects are stored (USE YOUR OWN PATH)
-$MUSIC_DB = "./private_music.csv" # Path to the music database (USE YOUR OWN PATH, PREFERABLY TO music.csv)
+# PATHS (USE YOUR OWN PATHS)                 
+Set-Variable -Name "PATH_BROWSER"       -Value "C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe" -Option Constant # Path to your browser (USE YOUR OWN PATH)
+Set-Variable -Name "PATH_IDE"           -Value "C:\Users\unmax\AppData\Local\Programs\Microsoft VS Code\Code.exe"   -Option Constant # Path to your IDE (USE YOUR OWN PATH)
+Set-Variable -Name "PROJECTS_DIR"       -Value "D:\git"                                                             -Option Constant # Path to the directory where your projects are stored (USE YOUR OWN PATH)
+Set-Variable -Name "MUSIC_DB"           -Value "./private_music.csv"                                                -Option Constant # Path to the music database (USE YOUR OWN PATH, PREFERABLY TO music.csv)
+
+# URLS
+Set-Variable -Name "YOUTUBE_BASE_URL"   -Value "https://www.youtube.com/watch?v="                                   -Option Constant
+
+# INFO
+Set-Variable -Name "TITLE" -Value "ANTICRASTINATOR`n---------------`n" -Option Constant
+
+# PROMPTS
+Set-Variable -Name "PROMPT_SELECT_PROJECT"  -Value "Select a project"   -Option Constant
+Set-Variable -Name "PROMPT_SELECT_MUSIC"    -Value "Select a music"     -Option Constant
+
+# ERRORS
+Set-Variable -Name "ERROR_INVALID_SELECTION"            -Value "ERROR: Invalid selection. Please try again."                -Option Constant
+Set-Variable -Name "ERROR_PROJECT_PATH_NOT_SPECIFIED"   -Value "ERROR: No project path specified."                          -Option Constant
+Set-Variable -Name "ERROR_PROJECTS_DIR_NOT_FOUND"       -Value "ERROR: Projects directory not found. Path: $PROJECTS_DIR"   -Option Constant
+Set-Variable -Name "ERROR_NO_PROJECTS_FOUND"            -Value "ERROR: No projects found in $PROJECTS_DIR"                  -Option Constant
+Set-Variable -Name "ERROR_BROWSER_NOT_FOUND"            -Value "ERROR: Browser not found. Path: $PATH_BROWSER"              -Option Constant
+Set-Variable -Name "ERROR_MUSIC_DB_NOT_FOUND"           -Value "ERROR: Music database not found. Path: $MUSIC_DB"           -Option Constant
+Set-Variable -Name "ERROR_NO_MUSICS_FOUND"              -Value "ERROR: No musics found in $MUSIC_DB"                        -Option Constant
 
 #############
 # Functions #
