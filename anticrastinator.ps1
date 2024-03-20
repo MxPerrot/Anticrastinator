@@ -27,9 +27,9 @@ Set-Variable -Name "ERROR_BROWSER_NOT_FOUND"            -Value "ERROR: Browser n
 Set-Variable -Name "ERROR_MUSIC_DB_NOT_FOUND"           -Value "ERROR: Music database not found. Path: $MUSIC_DB"           -Option Constant
 Set-Variable -Name "ERROR_NO_MUSICS_FOUND"              -Value "ERROR: No musics found in $MUSIC_DB"                        -Option Constant
 
-#############
-# Functions #
-#############
+#############################################
+#                 FUNCTIONS                 #
+#############################################
 
 # DISPLAY INFO
 
@@ -127,9 +127,10 @@ function Select-Music {
     } else {Write-Host "Music database not found. Path: $MUSIC_DB`n"}
 }
 
-########
-# MAIN #
-########
+#############################################
+#                    MAIN                   #
+#############################################
+
 function Main {
     Info
     $projectPath = Select-Project
